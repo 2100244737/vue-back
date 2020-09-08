@@ -71,21 +71,20 @@ function apiAxios(method, url, params, success) {
             'Content-Type': 'application/json;charset=utf-8', // 请求头
         }
     }).then(function (res) {
-// 成功时回调
+       // 成功时回调
         if (success) {
 
             success(res.data);
             store.commit('set_loading', false);
             if (res.data.statusCode == 1000) {
+                var url = 'https://web.datasw.cn/device/webLogin'
                 MessageBox.confirm('登陆状态失效，请重新登录！', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    var url = 'https://web.datasw.cn/device/webLogin'
                     window.location.replace(url)
                 }).catch(() => {
-                    var url = 'https://web.datasw.cn/device/webLogin'
                     window.location.replace(url)
                     return false
                 });
@@ -96,17 +95,12 @@ function apiAxios(method, url, params, success) {
         }
     }).catch(function (err) {
         // 异常时回调
-        //   message.warning('网络连接失败, 请检查网络......');
         return false;
     });
 }
 axios.interceptors.request.use(
     config => {
         NProgress.start()
-        // 该处可以将config打印出来看一下，该部分将发送给后端（server端）
-        // if (!_this.$cookies.get('openId')) {
-        //     // _this.$router.push('/login')
-        // }
         if(config.method==='post'&& !config.headers.upData) {
             config.cancelToken = new cancelToken((c) => {
                 removePending(config, c);
@@ -114,7 +108,8 @@ axios.interceptors.request.use(
         }
         return config  // 对config处理完后返回，下一步将向后端发送请求
     },
-    error => {  // 当发生错误时，执行该部分代码
+    error => {
+        // 当发生错误时，执行该部分代码
         return Promise.reject(error)
     }
 )
@@ -184,7 +179,7 @@ function changeData (content,filename){
         "timestamp": getTime(),
         "version":"2.0",
         "tokenType":"USER_AUTH",
-        "accessToken": cookies.get('token')
+        "accessToken": cookies.get('accessToken')
     }
     return dataItme
 }
@@ -197,6 +192,8 @@ export default {
     // 修改
     post: function (url, params,filename, success) {
         var file = filename + getDataTime() + '.json';
+        // params.accessToken = cookies.get('openId')
+        // params.openId = cookies.get('openId')
         var  data = changeData(params,file)
         return apiAxios('POST', url, data, success);
     },

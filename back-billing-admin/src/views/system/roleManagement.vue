@@ -224,9 +224,7 @@
                     openId: _t.$cookies.get('openId'),
                     roleId: _t.$cookies.get('roleId')
                 };
-                var filename = api.MENU_TREE + getDataTime() + '.json';
-                var data = _t.changeData(params, filename, _t.$cookies.get('accessToken'));
-                _t.$api.post('api/json', data, function (res) {
+                _t.$api.post('api/json', params,api.MENU_TREE, function (res) {
                     if (res.statusCode == 0) {
                         _t.allocationVisible = true;
                         _t.menuList =  JSON.parse(res.bizContent).nodes
@@ -250,9 +248,7 @@
                     accessToken: _t.$cookies.get('accessToken'),
                     openId: _t.$cookies.get('openId'),
                 };
-                var filename = api.MENU + getDataTime() + '.json';
-                var data = _t.changeData(params, filename, _t.$cookies.get('accessToken'));
-                _t.$api.post('api/json', data, function (res) {
+                _t.$api.post('api/json', params,api.MENU, function (res) {
                     if (res.statusCode == 0) {
 
                          var MenuData = JSON.parse(res.bizContent).menuIds ? JSON.parse(res.bizContent).menuIds : []
@@ -277,12 +273,10 @@
                 const params = {
                     roleId: _t.roleId,
                     menuId: treeList,
-                    accessToken: _t.$cookiess.get('accessToken'),
-                    openId: _t.$cookiess.get('openId'),
+                    accessToken: _t.$cookies.get('accessToken'),
+                    openId: _t.$cookies.get('openId'),
                 };
-                var filename = api.CONF_MENU + getDataTime() + '.json';
-                var data = _t.changeData(params, filename, _t.$cookies.get('accessToken'));
-                _t.$api.post('api/json', data, function (res) {
+                _t.$api.post('api/json', params,api.CONF_MENU, function (res) {
                     if (res.statusCode == 0) {
                         _t.resetAllocation()
                         _t.alertMessageTip(_t, res.errorMsg);
@@ -313,33 +307,21 @@
                 var _t = this
                 const params = {
                     name: _t.formItem.roleName,
-                    accessToken: _t.$cookiess.get('accessToken'),
-                    openId: _t.$cookiess.get('openId'),
+                    accessToken: _t.$cookies.get('accessToken'),
+                    openId: _t.$cookies.get('openId'),
                     pageNo: _t.options.currentPage, // 当前页
                     pageSize: _t.options.pageSize, // 显示条数
                 };
                 _t.$store.commit('set_loading', true);
-                var filename = api.ROLE_PAGE + getDataTime() + '.json';
-                var data = _t.changeData(params, filename, _t.$cookiess.get('accessToken'));
-                _t.$api.post('api/json', data, function (res) {
+                _t.$api.post('api/json', params,api.ROLE_PAGE, function (res) {
                     if (res.statusCode == 0) {
-
                         _t.$store.commit('set_loading', false);
                         _t.tableData = JSON.parse(res.bizContent).data ? JSON.parse(res.bizContent).data : [];
                         var pages = JSON.parse(res.bizContent).totalCount
                         _t.options.total = pages ? pages : 0;
-                        // if (JSON.parse(res.bizContent).data) {
-                        //
-                        // }else {
-                        //      _t.tableData = [];
-                        //     // _t.alertDialogTip(_t,'查询数据为空！')
-                        // }
-
                     } else {
                         _t.alertDialogTip(_t, res.errorMsg)
                     }
-                    // _t.tableData = JSON.parse(res.bizContent).data
-
                 })
             },
 
@@ -356,12 +338,10 @@
                             name: _t.addEdit.name,
                             group: _t.addEdit.roleGroupType,
                             comments: _t.addEdit.comments,
-                            accessToken: _t.$cookiess.get('accessToken'),
-                            openId: _t.$cookiess.get('openId'),
+                            accessToken: _t.$cookies.get('accessToken'),
+                            openId: _t.$cookies.get('openId'),
                         };
-                        var filename = api.ROLE_ADD + getDataTime() + '.json';
-                        var data = _t.changeData(params, filename, _t.$cookiess.get('accessToken'));
-                        _t.$api.post('api/json', data, function (res) {
+                        _t.$api.post('api/json', params,api.ROLE_ADD, function (res) {
                             if (res.statusCode == 0) {
                                 _t.dialogVisible = false;
                                 _t.alertMessageTip(_t, res.errorMsg);
@@ -399,13 +379,10 @@
                             group: _t.upDataForm.roleGroupType,
                             id: _t.upDataForm.id,
                             comments: _t.upDataForm.comments,
-                            accessToken: _t.$cookiess.get('accessToken'),
-                            openId: _t.$cookiess.get('openId'),
+                            accessToken: _t.$cookies.get('accessToken'),
+                            openId: _t.$cookies.get('openId'),
                         };
-
-                        var filename = api.ROLE_UPDATE + getDataTime() + '.json';
-                        var data = _t.changeData(params, filename, _t.$cookiess.get('accessToken'));
-                        _t.$api.post('api/json', data, function (res) {
+                        _t.$api.post('api/json', params,api.ROLE_UPDATE, function (res) {
                             if (res.statusCode == 0) {
                                 _t.alertMessageTip(_t, res.errorMsg);
                                 _t.getData();
@@ -444,12 +421,10 @@
                 }).then(() => {
                     const params = {
                         id: row.id,
-                        accessToken: _t.$cookiess.get('accessToken'),
-                        openId: _t.$cookiess.get('openId'),
+                        accessToken: _t.$cookies.get('accessToken'),
+                        openId: _t.$cookies.get('openId'),
                     };
-                    var filename = api.ROLE_DELETE + getDataTime() + '.json';
-                    var data = _t.changeData(params, filename, _t.$cookiess.get('accessToken'));
-                    _t.$api.post('api/json', data, function (res) {
+                    _t.$api.post('api/json', params,api.ROLE_DELETE, function (res) {
                         if (res.statusCode == 0) {
                             _t.alertMessageTip(_t, res.errorMsg);
                             _t.getData();

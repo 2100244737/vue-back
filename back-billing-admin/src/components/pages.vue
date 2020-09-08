@@ -114,12 +114,12 @@
 
 <style scoped>
     /deep/ .el-pagination .el-select .el-input .el-input__inner {
-        width: 108px;/*no*/
-        height: 26px;/*no*/
+        width: 108px;
+        height: 26px;
     }
     .paging {
-        margin-top:20px; /*no*/
-        margin-bottom: 20px;/*no*/
+        margin-top:20px;
+        margin-bottom: 20px;
     }
     .first-pager,
     .last-pager {

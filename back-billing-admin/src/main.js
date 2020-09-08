@@ -38,22 +38,7 @@ Vue.prototype.alertMessageTip = (name, message) => {
         offset: 150
     });
 };
-import NProgress from 'nprogress'
-import 'nprogress/nprogress.css'
-Vue.prototype.NProgress = NProgress
-NProgress.inc(0.2);
-NProgress.configure({
-    minimum: 0.3
-});
-// 页面进度条
-router.beforeEach((to, from, next) => {
-    NProgress.start();
-    next()
-});
 
-router.afterEach(transition => {
-    NProgress.done();
-});
 
 Vue.use(vueCookie);
 

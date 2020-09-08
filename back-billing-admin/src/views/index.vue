@@ -151,7 +151,7 @@
                     }
                 }
                 if (!flag) {
-                    if(to.name != 'err') {
+                    if (to.name != 'err') {
                         _t.$store.commit('add_tabs', {
                             route: to.path,
                             title: to.meta.title,
@@ -206,19 +206,19 @@
             },
             clearCache() {
                 // 清除数据
-                this.$cookies.delete('openId');
-                this.$cookies.delete('accessToken');
-                this.$cookies.delete('phone');
-                this.$cookies.delete('username');
-                this.$cookies.delete('roleName');
-                this.$cookies.delete('roleId');
-                this.$cookies.delete('companyName');
+                this.$cookies.remove('openId');
+                this.$cookies.remove('accessToken');
+                this.$cookies.remove('phone');
+                this.$cookies.remove('username');
+                this.$cookies.remove('roleName');
+                this.$cookies.remove('roleId');
+                this.$cookies.remove('companyName');
                 localStorage.removeItem("DEVICE_MENU_LIST");
             },
             loginOut() {
                 var _t = this;
                 //退出
-                var url = 'https://'+ location.hostname + '/device/webLogin/common/logout?openId=' + _t.$cookie.get('openId')+ '&accessToken=' + _t.$cookie.get('accessToken')
+                var url = 'https://'+ location.hostname + '/device/webLogin/common/logout?openId=' + _t.$cookies.get('openId')+ '&accessToken=' + _t.$cookies.get('accessToken')
                 window.location.replace(url)
                 _t.clearCache()
             },

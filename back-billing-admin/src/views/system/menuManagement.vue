@@ -152,9 +152,7 @@
 </template>
 
 <script>
-    // import {getDataTime} from '@/assets/js/time'
-    // import api from '../../uitls/api/system'
-
+     import api from '../../uitls/http/system'
     export default {
         name: "menuManagement",
         data() {
@@ -226,13 +224,11 @@
             getTree (val) {
                 var _t = this;
                 const params = {
-                    openId: _t.$cookiess.get('openId'),
+                    openId: _t.$cookies.get('openId'),
                     menuId: _t.menuId,
                     serviceId:'SMPW'
                 };
-                var filename = api.DEVAPI_TREE + getDataTime() + '.json';
-                var data = _t.changeData(params, filename, _t.$cookiess.get('accessToken'));
-                _t.$api.post('api/json', data, function (res) {
+                _t.$api.post('api/json', params,api.DEVAPI_TREE, function (res) {
                     if (res.statusCode == 0) {
                         _t.deploy.treeList = JSON.parse(res.bizContent).list
                         _t.getMenu()
@@ -245,18 +241,15 @@
             getMenu () {
                 var _t = this;
                 const params = {
-                    openId: _t.$cookiess.get('openId'),
+                    openId: _t.$cookies.get('openId'),
                     menuId: _t.menuId,
                 };
-                var filename = api.DEVMENU_API + getDataTime() + '.json';
-                var data = _t.changeData(params, filename, _t.$cookiess.get('accessToken'));
-                _t.$api.post('api/json', data, function (res) {
+                _t.$api.post('api/json', params,api.DEVMENU_API, function (res) {
                     if (res.statusCode == 0) {
                         var MenuData = JSON.parse(res.bizContent).data?JSON.parse(res.bizContent).data: []
                         MenuData.forEach(item => {
                             _t.$nextTick(function () {
                                 _t.$refs.tree.setChecked(item, true, false)
-                                // _t.defaultShowNodes.push(item)
                             })
                         })
                     } else {
@@ -337,13 +330,11 @@
                 })
                 _t.pushDataTree = arr
                 const params = {
-                    openId: _t.$cookiess.get('openId'),
+                    openId: _t.$cookies.get('openId'),
                     menuId: _t.menuId,// row id
                     apiIds: _t.pushDataTree,//角色id
                 };
-                var filename = api.DEVMENU_CONFIG + getDataTime() + '.json';
-                var data = _t.changeData(params, filename,  _t.$cookiess.get('accessToken'));
-                _t.$api.post('api/json', data, function (res) {
+                _t.$api.post('api/json', params,api.DEVMENU_CONFIG, function (res) {
                     if (res.statusCode == 0) {
                         _t.deployAPIVisible = false;
                         _t.alertMessageTip(_t, res.errorMsg);
@@ -357,8 +348,6 @@
                 this.deployAPIVisible = true
                 this.menuId = row.id;
                 this.getTree(row.id);
-
-
             },
             // 配置api 取消
             deployAPIAccess() {
@@ -379,12 +368,10 @@
                             imgUrl:_t.amend.imgUrl,
                             list:_t.amend.list,
                             menuId: _t.amend.menuId,
-                            accessToken: _t.$cookiess.get('accessToken'),
-                            openId: _t.$cookiess.get('openId'),
+                            accessToken: _t.$cookies.get('accessToken'),
+                            openId: _t.$cookies.get('openId'),
                         };
-                        var filename = api.MENU_UPDATE + getDataTime() + '.json';
-                        var data = _t.changeData(params, filename, _t.$cookiess.get('accessToken'));
-                        _t.$api.post('api/json', data, function (res) {
+                        _t.$api.post('api/json', params,api.MENU_UPDATE, function (res) {
                             if (res.statusCode == 0) {
                                 _t.alertMessageTip(_t, res.errorMsg);
                                 _t.getData();
@@ -410,12 +397,10 @@
                 }).then(() => {
                     const params = {
                         menuId: row.id,
-                        accessToken: _t.$cookiess.get('accessToken'),
-                        openId: _t.$cookiess.get('openId'),
+                        accessToken: _t.$cookies.get('accessToken'),
+                        openId: _t.$cookies.get('openId'),
                     };
-                    var filename = api.MENU_DELETE + getDataTime() + '.json';
-                    var data = _t.changeData(params, filename, _t.$cookiess.get('accessToken'));
-                    _t.$api.post('api/json', data, function (res) {
+                    _t.$api.post('api/json', params,api.MENU_DELETE, function (res) {
                         if (res.statusCode == 0) {
                             _t.alertMessageTip(_t, res.errorMsg);
                             _t.getData();
@@ -475,13 +460,10 @@
                             imgUrl: _t.addEdit.imgUrl,
                             list: _t.addEdit.list,
                             menuType: _t.addEdit.menuType == '一级菜单' ? '1' : '2',
-                            accessToken: _t.$cookiess.get('accessToken'),
-                            openId: _t.$cookiess.get('openId'),
+                            accessToken: _t.$cookies.get('accessToken'),
+                            openId: _t.$cookies.get('openId'),
                         };
-
-                        var filename = api.MENU_ADD + getDataTime() + '.json';
-                        var data = _t.changeData(params, filename, _t.$cookiess.get('accessToken'));
-                        _t.$api.post('api/json', data, function (res) {
+                        _t.$api.post('api/json', params,api.MENU_ADD, function (res) {
                             if (res.statusCode == 0) {
                                 _t.alertMessageTip(_t, res.errorMsg);
                                 _t.getData()
@@ -503,13 +485,10 @@
                 _t.tableData = []
                 const params = {
                     parentId: row,
-                    accessToken: _t.$cookiess.get('accessToken'),
-                    openId: _t.$cookiess.get('openId'),
+                    accessToken: _t.$cookies.get('accessToken'),
+                    openId: _t.$cookies.get('openId'),
                 };
-
-                var filename = api.MENU_LIST + getDataTime() + '.json';
-                var data = _t.changeData(params, filename, _t.$cookiess.get('accessToken'));
-                _t.$api.post('api/json', data, function (res) {
+                _t.$api.post('api/json', params,api.MENU_LIST, function (res) {
                     if (res.statusCode == 0) {
                         _t.tableData = JSON.parse(res.bizContent).list
                     } else {
@@ -532,12 +511,10 @@
                 _t.menuList = []
                 const params = {
                     parentId: '',
-                    accessToken: _t.$cookiess.get('accessToken'),
-                    openId: _t.$cookiess.get('openId'),
+                    accessToken: _t.$cookies.get('accessToken'),
+                    openId: _t.$cookies.get('openId'),
                 };
-                var filename = api.MENU_TREE + getDataTime() + '.json';
-                var data = _t.changeData(params, filename, _t.$cookiess.get('accessToken'));
-                _t.$api.post('api/json', data, function (res) {
+                _t.$api.post('api/json', params,api.MENU_TREE, function (res) {
                     if (res.statusCode == 0) {
                         var obj = new Object()
                         obj.name = '目录'
