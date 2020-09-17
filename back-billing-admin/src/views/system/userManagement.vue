@@ -78,25 +78,7 @@
                             @handleSizeChangeSub="handleSizeChangeSub"
                             @handleCurrentChangeSub="handleCurrentChange"/>
         </div>
-        <!--        <FormDialog title="修改测试"  @add="addBtns()" @cancel="cancelBtns()" :dialogFlag.sync="amendVisible" >-->
-        <!--            <div slot="content">-->
-        <!--                <el-form :model="amend" :rules="rules" ref="amend" label-width="120px">-->
-        <!--                    <el-form-item label="角色：" prop="role">-->
-        <!--                        <el-select-->
-        <!--                                clearable-->
-        <!--                                placeholder="请选择角色"-->
-        <!--                                v-model="amend.role">-->
-        <!--                            <el-option-->
-        <!--                                    v-for="(item,index) in roleList"-->
-        <!--                                    :key="index"-->
-        <!--                                    :label="item.name"-->
-        <!--                                    :value="item.id"/>-->
-        <!--                        </el-select>-->
-        <!--                    </el-form-item>-->
-        <!--                </el-form>-->
-        <!--            </div>-->
-        <!--        </FormDialog>-->
-        <!--    修改-->
+
         <el-dialog
                 append-to-body
                 :close-on-click-modal="true"
@@ -234,6 +216,12 @@
                     mobile: '',
                 },
                 checkShow: false,
+                // 分页
+                options: {
+                    total: 0, // 总条数
+                    currentPage: 1, // 当前页码
+                    pageSize: 10, // 显示条数
+                },
                 // 新增对象
                 addEdit: {
                     UserType: '',

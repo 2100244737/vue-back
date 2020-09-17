@@ -10,7 +10,7 @@ module.exports = {
     //配置跨域
     devServer: {
         open: true,
-        host: '10.10.10.126',
+        host: 'localhost',
         port: 8090,
         https: false,
         hotOnly: true,
